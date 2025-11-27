@@ -1,0 +1,41 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: pinyin_tone
+  name: 带调拼音
+  version: '1.0'
+  author:
+    - 设计：圆勇
+  description: |
+    直接输入带音调标记的汉语拼音，基于官方国际音标IPA方案修改
+
+engine:
+  processors:
+    - key_binder
+    - speller
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - abc_segmentor
+    - fallback_segmentor
+  translators:
+    - table_translator
+
+speller:
+  # 允许字母 + 数字（声调）+ v（ü）+ 单引号（隔音）
+  alphabet: "abcdefghijklmnopqrstuvwxyz12345v'"
+  # 可作为开头的字符（一般字母即可）
+  initials: "abcdefghijklmnopqrstuvwxyzv"
+  auto_select: true
+
+translator:
+  dictionary: pinyin_tone
+  enable_sentence: false
+  enable_user_dict: false
+  comment_format:
+    - xform/^~//
+
+key_binder:
+  import_preset: default
